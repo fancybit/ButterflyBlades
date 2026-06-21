@@ -1,0 +1,39 @@
+# Build outputs
+build/
+*.exe
+*.dll
+*.so
+*.dylib
+*.obj
+*.o
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.suo
+*.user
+*.sln
+*.vcxproj
+*.vcxproj.filters
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+*.cmake
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Third-party (downloaded at build time)
+third_party/
+
+# Config (local)
+config/default_config.json

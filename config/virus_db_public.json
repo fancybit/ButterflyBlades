@@ -1,0 +1,223 @@
+{
+    "version": "0.1.0",
+    "updated": "2026-06-21T00:00:00Z",
+    "description": "ButterflyBlades 默认公开病毒库（示例条目）",
+
+    "signatures": [
+        {
+            "id": "BB-VIRUS-0001",
+            "name": "EICAR-Test-File",
+            "description": "EICAR 标准反病毒测试文件",
+            "severity": "low",
+            "type": "test",
+            "hash_sha256": "275a021bbfb6489e54d471899f7db9d1663fc695ec2fe2a2c4538aabf651fd0f",
+            "hash_md5": "44d88612fea8a8f36de82e1278abb02f",
+            "pattern": "X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*",
+            "removal_instruction": "Delete the file"
+        },
+        {
+            "id": "BB-VIRUS-0002",
+            "name": "Trojan.Generic.Emotet",
+            "description": "Emotet 银行木马家族特征",
+            "severity": "critical",
+            "type": "trojan",
+            "hash_sha256": "EXAMPLE_HASH_PLACEHOLDER_EMOTET",
+            "hashes": [
+                "d5c54aa0b2636e8aa3d626e06696bfd9e63dd5d81552dd0d1c694dd04d3a9520",
+                "7b0d10d06d9733338feefd6faa082a41f8b3b0cf25eb729ef105be0d7c33791f"
+            ],
+            "filenames": [
+                "invoice_*.doc",
+                "payment_*.xlsm",
+                "shipping_details_*.zip"
+            ],
+            "registry_keys": [],
+            "mutex": ["Global\\Emotet_Mutex"],
+            "removal_instruction": "Isolate network, run full scan, remove persistence mechanisms"
+        },
+        {
+            "id": "BB-VIRUS-0003",
+            "name": "Ransomware.WannaCry",
+            "description": "WannaCry 勒索软件特征",
+            "severity": "critical",
+            "type": "ransomware",
+            "hash_sha256": "EXAMPLE_HASH_PLACEHOLDER_WANNACRY",
+            "hashes": [
+                "ed01ebfbc9eb5bbea545af4d01bf5f1071661840480439c6e5babe8e080e41aa",
+                "db349b97c37d22f5ea1d1841e3c89eb4e89e7e6e8d5a6f1d8e5a6f1d8e5a6f1"
+            ],
+            "filenames": [
+                "tasksche.exe",
+                "mssecsvc.exe",
+                "@WanaDecryptor@.exe"
+            ],
+            "extensions": [".wncry", ".wncryt", ".wcry"],
+            "ransom_note": "!Please Read Me!.txt",
+            "removal_instruction": "Isolate immediately, do not pay ransom, restore from backup"
+        },
+        {
+            "id": "BB-VIRUS-0004",
+            "name": "Adware.Generic.PUP",
+            "description": "通用潜在有害程序（PUP）/ 广告软件",
+            "severity": "medium",
+            "type": "adware",
+            "filenames": [
+                "*_installer*.exe",
+                "*setup*.exe",
+                "*free_download*.exe"
+            ],
+            "process_names": [
+                "helper_*.exe",
+                "update_checker.exe",
+                "browser_safeguard.exe"
+            ],
+            "registry_keys": [
+                "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\*PUP*"
+            ],
+            "removal_instruction": "Uninstall from Control Panel, clean browser extensions"
+        },
+        {
+            "id": "BB-VIRUS-0005",
+            "name": "Backdoor.RemoteAccess",
+            "description": "远程访问木马通用特征",
+            "severity": "critical",
+            "type": "backdoor",
+            "default_ports": [4444, 5555, 6666, 7777, 8888, 9999],
+            "process_names": [
+                "svchost.exe",
+                "lsass.exe",
+                "winlogon.exe"
+            ],
+            "behaviors": [
+                "binds_to_port",
+                "reverse_shell_connection",
+                "process_injection",
+                "registry_persistence"
+            ],
+            "removal_instruction": "Block network, terminate process, remove startup entry, full scan"
+        },
+        {
+            "id": "BB-VIRUS-0006",
+            "name": "Miner.CryptoJack",
+            "description": "加密货币挖矿恶意软件",
+            "severity": "high",
+            "type": "cryptominer",
+            "filenames": [
+                "xmrig.exe",
+                "miner.exe",
+                "cpuminer.exe",
+                "system32.exe",
+                "wmi_prv_se.exe"
+            ],
+            "process_names": [
+                "xmrig",
+                "minerd",
+                "cpuminer",
+                "ethminer"
+            ],
+            "behaviors": [
+                "high_cpu_usage_continuous",
+                "connects_to_mining_pool",
+                "hides_window"
+            ],
+            "removal_instruction": "Terminate process, remove scheduled task, check startup folder"
+        },
+        {
+            "id": "BB-VIRUS-0007",
+            "name": "Worm.AutoRun",
+            "description": "U盘自动运行蠕虫",
+            "severity": "high",
+            "type": "worm",
+            "filenames": [
+                "autorun.inf",
+                "*.vbs",
+                "*.bat",
+                "recycler.exe"
+            ],
+            "behaviors": [
+                "creates_autorun_inf",
+                "hides_original_files",
+                "copies_self_to_removable"
+            ],
+            "removal_instruction": "Disable AutoRun, scan all removable drives, remove autorun.inf"
+        },
+        {
+            "id": "BB-VIRUS-0008",
+            "name": "Spyware.Keylogger",
+            "description": "键盘记录器特征",
+            "severity": "high",
+            "type": "spyware",
+            "behaviors": [
+                "set_windows_hook",
+                "raw_input_device_monitor",
+                "create_hidden_log_file",
+                "periodic_network_upload"
+            ],
+            "registry_keys": [
+                "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\*keylog*"
+            ],
+            "removal_instruction": "Change all passwords, remove startup entries, reinstall OS if persistent"
+        },
+        {
+            "id": "BB-VIRUS-0009",
+            "name": "Dropper.MalDoc",
+            "description": "恶意文档投放器",
+            "severity": "high",
+            "type": "dropper",
+            "filenames": [
+                "*.docm",
+                "*.xlsm",
+                "*.pptm"
+            ],
+            "behaviors": [
+                "macro_execution",
+                "downloads_executable",
+                "creates_process",
+                "writes_to_temp"
+            ],
+            "removal_instruction": "Do not enable macros, delete document, full scan"
+        },
+        {
+            "id": "BB-VIRUS-0010",
+            "name": "Banker.ZeuS",
+            "description": "ZeuS 银行木马特征",
+            "severity": "critical",
+            "type": "banker",
+            "filenames": [
+                "sdra64.exe",
+                "ntos.exe",
+                "oembios.exe"
+            ],
+            "registry_keys": [
+                "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\sdra64"
+            ],
+            "behaviors": [
+                "browser_form_grabbing",
+                "web_inject",
+                "hidden_process",
+                "encrypted_config"
+            ],
+            "removal_instruction": "Freeze bank accounts, change all credentials, full system scan, consider OS reinstall"
+        }
+    ],
+
+    "categories": {
+        "trojan": "木马",
+        "ransomware": "勒索软件",
+        "adware": "广告软件",
+        "backdoor": "后门",
+        "cryptominer": "挖矿木马",
+        "worm": "蠕虫",
+        "spyware": "间谍软件",
+        "dropper": "投放器",
+        "banker": "银行木马",
+        "test": "测试文件"
+    },
+
+    "severity_levels": {
+        "low": "低",
+        "medium": "中",
+        "high": "高",
+        "critical": "严重"
+    }
+}
