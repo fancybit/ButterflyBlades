@@ -92,17 +92,55 @@ ButterflyBlades/
 
 - CMake >= 3.20
 - C++20 编译器（MSVC 2022+ / GCC 11+ / Clang 14+）
-- nlohmann/json（自动 FetchContent 获取）
+- nlohmann/json（单头文件，构建前需手动下载）
 
-### Windows
+### 克隆仓库
 
-```powershell
-mkdir build && cd build
-cmake .. -G "Visual Studio 17 2022" -A x64 -DBB_STATIC_MODULES=ON
-cmake --build . --config Release
+```bash
+# GitHub（主仓库）
+git clone https://github.com/fancybit/ButterflyBlades.git
+cd ButterflyBlades
+
+# Gitee（国内镜像）
+git clone https://gitee.com/fancybit/butterfly-blades.git
+cd butterfly-blades
 ```
 
-### Linux
+### 准备 nlohmann/json 头文件
+
+项目依赖 nlohmann/json 单头文件，构建前需手动下载到 `third_party/nlohmann/` 目录：
+
+```powershell
+# PowerShell（Windows）
+mkdir -p third_party\nlohmann\nlohmann
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/nlohmann/json/develop/single_include/nlohmann/json.hpp" -OutFile "third_party\nlohmann\nlohmann\json.hpp"
+```
+
+```bash
+# Bash（Linux / macOS）
+mkdir -p third_party/nlohmann/nlohmann
+curl -L -o third_party/nlohmann/nlohmann/json.hpp \
+  https://raw.githubusercontent.com/nlohmann/json/develop/single_include/nlohmann/json.hpp
+```
+
+### Windows 构建
+
+```powershell
+# 1. 配置（替换为你的 VS 安装路径中的 cmake.exe）
+mkdir build; cd build
+& "C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" .. -G "Visual Studio 17 2022" -A x64 -DBB_STATIC_MODULES=ON
+
+# 2. 编译 Release
+& "C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --build . --config Release
+
+# 3. 产物位置
+# ButterflyBlades.exe → build\Release\ButterflyBlades.exe
+# bb_console.exe     → build\Release\bb_console.exe
+```
+
+> **提示**：如果 cmake 已在 PATH 中，可直接使用 `cmake` 命令。上例使用绝对路径以适配未配置环境变量的场景。
+
+### Linux 构建
 
 ```bash
 mkdir build && cd build
@@ -110,12 +148,32 @@ cmake .. -DCMAKE_BUILD_TYPE=Release -DBB_STATIC_MODULES=ON
 make -j$(nproc)
 ```
 
-### macOS
+### macOS 构建
 
 ```bash
 mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release -DBB_STATIC_MODULES=ON
 make -j$(sysctl -n hw.ncpu)
+```
+
+### 推送到双平台
+
+仓库已配置 GitHub 和 Gitee 双远程，后续提交可同时推送：
+
+```bash
+# 查看远程
+git remote -v
+# github  https://github.com/fancybit/ButterflyBlades.git
+# gitee   https://gitee.com/fancybit/butterfly-blades.git
+
+# 日常推送（GitHub）
+git push github master
+
+# 日常推送（Gitee）
+git push gitee master
+
+# 一键推送到两个平台
+git push github master; git push gitee master
 ```
 
 ## 运行
